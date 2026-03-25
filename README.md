@@ -52,8 +52,10 @@ php artisan optimize
 --- 
 
 ### Demo App Login Account
+```text
 Username: admin@example.com
 Password: password123
+```
 
 ## 🔥 準備好感受速度了嗎？
 現在就開始你的 Larolid 旅程。
