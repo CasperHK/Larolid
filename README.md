@@ -6,7 +6,7 @@
 * 🚀 **零虛擬 DOM (No VDOM):** Solid.js 直接操作原生節點。React 的開銷？那是上個世紀的事。
 * 🏗️ **真正的單體架構 (Single Codebase):** 沒有 API 路由的煩惱，沒有 CORS 的地獄。
 * 💎 **Flowbite Solid 預裝:** 業界頂尖的 UI 組件庫，開箱即用。
-* 🐘 PHP 8.4 + FrankenPHP: 享受 Property Hooks 與 Laravel Octane 驅動的常駐進程。
+* 🐘 **PHP 8.4 + FrankenPHP:** 享受 Property Hooks 與 Laravel Octane 驅動的常駐進程。
 * 🐳 **Docker Ready:** 預配置 Sail 或自定義 Dockerfile，支援 HTTP/3、Early Hints 與自動 HTTPS。
 
 
