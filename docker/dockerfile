@@ -1,0 +1,54 @@
+FROM php:8.4-fpm-alpine
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apk add --no-cache \
+    nginx \
+    nodejs \
+    npm \
+    git \
+    curl \
+    zip \
+    unzip \
+    sqlite \
+    libpq-dev \
+    oniguruma-dev
+
+# Install PHP extensions
+RUN docker-php-ext-install \
+    pdo \
+    pdo_pgsql \
+    mbstring \
+    ctype \
+    fileinfo \
+    opcache
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy application files
+COPY . .
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Install Node dependencies and build assets
+RUN npm install && npm run build
+
+# Copy nginx configuration
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+
+# Create necessary directories
+RUN mkdir -p storage/logs bootstrap/cache && \
+    chown -R www-data:www-data storage bootstrap
+
+# Expose ports
+EXPOSE 80 443
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/health || exit 1
+
+# Start services
+CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
